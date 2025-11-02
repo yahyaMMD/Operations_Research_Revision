@@ -3,428 +3,368 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Operations Research & Linear Programming — Summaries</title>
-  <meta name="description" content="Concise, student‑friendly summaries for Operations Research (OR) and Linear Programming (LP)." />
+  <title>Operations Research &amp; Linear Programming — Study Summaries</title>
+  <meta name="description" content="Concise, student-friendly summaries for Operations Research (OR) and Linear Programming (LP)." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0a0e14;
-      --bg-secondary:#0d1117;
-      --card:#111824;
-      --card-hover:#151d2c;
-      --muted:#8b9cb5;
-      --text:#e9f0f7;
-      --brand:#7c98ff;
-      --brand-2:#3be2b5;
-      --brand-glow:rgba(124,152,255,.3);
-      --brand-2-glow:rgba(59,226,181,.25);
-      --line:#1c2635;
-      --chip:#0f1622;
-      --shadow: 0 12px 40px rgba(0,0,0,.5);
-      --shadow-sm: 0 4px 12px rgba(0,0,0,.3);
-      --radius-lg:20px;
-      --radius-md:16px;
-      --radius-sm:12px;
+      color-scheme: dark light;
+      --bg: #060b12;
+      --bg-alt: #0f1622;
+      --card: rgba(17, 24, 36, 0.82);
+      --muted: #a4b4cb;
+      --text: #f3f6fb;
+      --brand: #7c98ff;
+      --brand-2: #3be2b5;
+      --line: rgba(124, 152, 255, 0.18);
+      --chip: rgba(15, 22, 34, 0.9);
+      --radius: clamp(14px, 2vw, 22px);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --container-max: 1200px;
+      --space: clamp(16px, 3vw, 40px);
     }
-    
+
     @media (prefers-color-scheme: light){
-      :root{ 
-        --bg:#f5f7fb; 
-        --bg-secondary:#ffffff;
-        --card:#ffffff; 
-        --card-hover:#fafbfd;
-        --text:#0d1726; 
-        --muted:#5c6a7e; 
-        --line:#e0e6ef; 
-        --chip:#f0f3f9; 
-        --shadow:0 12px 32px rgba(30,55,90,.1); 
-        --shadow-sm:0 4px 12px rgba(30,55,90,.06);
-        --brand-glow:rgba(124,152,255,.15);
-        --brand-2-glow:rgba(59,226,181,.15);
+      :root{
+        --bg: #f3f6fb;
+        --bg-alt: #ffffff;
+        --card: rgba(255, 255, 255, 0.94);
+        --text: #101a2c;
+        --muted: #607087;
+        --line: rgba(16, 26, 44, 0.08);
+        --chip: rgba(233, 238, 247, 0.9);
+        --shadow: 0 18px 50px rgba(40, 60, 90, 0.12);
       }
-      .code{ background:#0d1726; color:#e9f0f7; }
+
+      .code{background:#101a2c;color:#e8effb;}
     }
-    
-    *{box-sizing:border-box; margin:0; padding:0}
-    html{scroll-behavior:smooth; font-size:16px}
+
+    *, *::before, *::after{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
     body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif; 
-      background:var(--bg);
-      color:var(--text); 
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at 15% -5%, rgba(124, 152, 255, 0.22), transparent 60%),
+                  radial-gradient(circle at 90% -15%, rgba(59, 226, 181, 0.18), transparent 60%),
+                  linear-gradient(160deg, var(--bg), var(--bg-alt) 55%, var(--bg));
+      color:var(--text);
       line-height:1.65;
-      overflow-x:hidden;
+      min-height:100vh;
+      padding-inline: clamp(16px, 4vw, 48px);
+      padding-block: clamp(24px, 4vw, 48px);
     }
-    
-    /* Background gradient overlay */
+
     body::before{
-      content:'';
+      content:"";
       position:fixed;
-      top:0;left:0;right:0;bottom:0;
-      background:
-        radial-gradient(1400px 700px at 20% -5%, var(--brand-glow), transparent 70%),
-        radial-gradient(1200px 600px at 85% -5%, var(--brand-2-glow), transparent 70%),
-        linear-gradient(180deg, var(--bg), var(--bg-secondary) 50%, var(--bg));
+      inset:0;
       pointer-events:none;
-      z-index:0;
+      background:radial-gradient(900px 900px at 10% 10%, rgba(124,152,255,0.16), transparent 70%),
+                radial-gradient(1200px 800px at 85% 0%, rgba(59,226,181,0.12), transparent 65%);
+      opacity:0.9;
+      z-index:-1;
     }
-    
-    a{color:var(--brand); text-decoration:none; transition:all .2s}
-    a:hover{color:var(--brand-2); text-decoration:underline}
-    
-    /* Layout */
+
+    a{color:var(--brand);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+    a:focus-visible{outline:2px solid var(--brand); outline-offset:3px; border-radius:6px;}
+
     .app{
+      display:grid;
+      grid-template-columns:minmax(0, 280px) minmax(0, 1fr);
+      gap:clamp(20px, 3vw, 36px);
+      margin-inline:auto;
+      width:min(100%, var(--container-max));
       position:relative;
-      z-index:1;
-      display:grid; 
-      grid-template-columns: 280px 1fr; 
-      gap:28px; 
-      max-width:1280px; 
-      margin:0 auto; 
-      padding:40px 24px;
     }
-    
-    /* Hero Header */
-    header.hero{
-      grid-column:1/-1; 
-      background:var(--card);
-      backdrop-filter:blur(10px);
-      border:1px solid var(--line); 
-      border-radius:var(--radius-lg); 
-      padding:36px 32px; 
+
+    .hero{
+      grid-column:1 / -1;
+      position:relative;
+      background:linear-gradient(120deg, rgba(124,152,255,0.12), transparent 60%),
+                 linear-gradient(240deg, rgba(59,226,181,0.1), transparent 70%),
+                 var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding: clamp(24px, 4vw, 36px);
       box-shadow:var(--shadow);
-      transition:transform .3s, box-shadow .3s;
+      overflow:hidden;
+      isolation:isolate;
     }
-    header.hero:hover{
-      transform:translateY(-2px);
-      box-shadow:0 16px 48px rgba(0,0,0,.6);
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:16px;
+      border-radius:calc(var(--radius) - 8px);
+      border:1px solid rgba(124, 152, 255, 0.18);
+      pointer-events:none;
+      opacity:0.5;
     }
+
     .hero h1{
-      margin:0 0 8px; 
-      font-weight:800; 
-      font-size:clamp(1.75rem, 4vw, 2.5rem);
-      letter-spacing:-.02em;
-      background:linear-gradient(135deg, var(--brand), var(--brand-2));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
+      margin:0 0 10px;
+      font-size:clamp(1.9rem, 3.6vw, 2.6rem);
+      font-weight:800;
+      letter-spacing:0.15px;
+      max-width:20ch;
     }
+
     .hero p{
       margin:0;
       color:var(--muted);
-      font-size:clamp(.95rem, 2vw, 1.05rem);
-      max-width:800px;
+      max-width:60ch;
     }
-    .meta{
-      display:flex; 
-      gap:12px; 
-      flex-wrap:wrap; 
-      margin-top:16px;
+
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:clamp(16px, 2vw, 22px);
+      align-items:center;
     }
+
     .chip{
-      background:var(--chip); 
-      border:1px solid var(--line); 
-      color:var(--muted); 
-      padding:8px 14px; 
-      border-radius:999px; 
-      font-size:.85rem;
-      font-weight:500;
-      transition:all .2s;
-    }
-    .chip:hover{
-      background:var(--card-hover);
-      border-color:var(--brand);
-      color:var(--brand);
-      transform:translateY(-1px);
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      background:var(--chip);
+      border:1px solid var(--line);
+      color:var(--muted);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:0.85rem;
+      letter-spacing:0.1px;
+      backdrop-filter:blur(10px);
     }
 
-    /* Sidebar */
-    nav.sidebar{
-      position:sticky; 
-      top:24px; 
-      align-self:start; 
-      background:var(--card); 
-      border:1px solid var(--line); 
-      border-radius:var(--radius-md); 
-      box-shadow:var(--shadow-sm);
-      max-height:calc(100vh - 48px);
-      overflow-y:auto;
-      scrollbar-width:thin;
-      scrollbar-color:var(--brand) var(--chip);
-    }
-    nav.sidebar::-webkit-scrollbar{width:6px}
-    nav.sidebar::-webkit-scrollbar-track{background:var(--chip)}
-    nav.sidebar::-webkit-scrollbar-thumb{background:var(--brand); border-radius:3px}
-    
-    .sidebar .title{
-      padding:18px 20px; 
-      border-bottom:1px solid var(--line); 
-      font-weight:700;
-      font-size:.95rem;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-      background:linear-gradient(135deg, var(--brand), var(--brand-2));
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-      background-clip:text;
-    }
-    .toc{list-style:none; padding:8px 0}
-    .toc a{
-      display:block; 
-      padding:11px 20px; 
-      color:var(--text); 
-      opacity:.85; 
-      border-left:3px solid transparent;
-      transition:all .2s;
-      font-size:.9rem;
-    }
-    .toc a:hover{
-      background:rgba(124,152,255,.08); 
-      border-left-color:var(--brand);
-      opacity:1;
-      text-decoration:none;
-      padding-left:24px;
-    }
-    .toc .sub{padding-left:20px}
-    .toc .sub a{font-size:.85rem; opacity:.75}
-
-    /* Main Content */
-    main{display:flex; flex-direction:column; gap:24px}
-    
-    section.card{
-      background:var(--card); 
-      border:1px solid var(--line); 
-      border-radius:var(--radius-md); 
-      padding:28px; 
-      box-shadow:var(--shadow-sm);
-      transition:all .3s;
-    }
-    section.card:hover{
-      border-color:rgba(124,152,255,.3);
-      box-shadow:var(--shadow);
-      transform:translateY(-2px);
-    }
-    
-    h2{
-      margin:0 0 16px; 
-      font-size:clamp(1.4rem, 3vw, 1.75rem);
-      font-weight:800;
-      letter-spacing:-.01em;
+    .toc-toggle{
+      display:none;
+      border:none;
+      background:linear-gradient(135deg, rgba(124,152,255,0.32), rgba(59,226,181,0.32));
       color:var(--text);
-    }
-    h3{
-      margin:18px 0 10px; 
-      font-size:clamp(1.05rem, 2.5vw, 1.2rem);
-      font-weight:700;
-      color:var(--text);
-    }
-    h4{
-      margin:14px 0 8px;
-      font-size:1rem;
       font-weight:600;
-      color:var(--brand);
+      padding:10px 16px;
+      border-radius:999px;
+      cursor:pointer;
+      box-shadow:0 10px 24px rgba(124,152,255,0.25);
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
-    p{margin:10px 0}
-    ul, ol{margin:10px 0 10px 1.2rem}
-    li{margin:6px 0; line-height:1.7}
-    
-    .grid{display:grid; gap:18px}
-    .two{grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))}
-    .three{grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))}
-    .muted{color:var(--muted)}
 
-    /* Callout boxes */
+    .toc-toggle:hover{transform:translateY(-1px); box-shadow:0 14px 30px rgba(124,152,255,0.35);}
+    .toc-toggle:active{transform:translateY(0);}
+
+    nav.sidebar{
+      align-self:start;
+      position:sticky;
+      top:clamp(12px, 3vw, 32px);
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter:blur(18px) saturate(140%);
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      max-height:calc(100vh - clamp(12px, 3vw, 32px)*2);
+      overflow:hidden;
+    }
+
+    .sidebar .title{
+      padding:16px 22px;
+      border-bottom:1px solid var(--line);
+      font-weight:700;
+      letter-spacing:0.3px;
+    }
+
+    .toc{
+      list-style:none;
+      margin:0;
+      padding:8px 0;
+      overflow:auto;
+    }
+
+    .toc a{
+      display:block;
+      padding:10px 22px;
+      color:var(--text);
+      opacity:0.92;
+      border-left:3px solid transparent;
+      transition:background 0.2s ease, border-color 0.2s ease, padding 0.2s ease;
+      font-size:0.96rem;
+    }
+
+    .toc a:hover{
+      background:rgba(124,152,255,0.1);
+      border-left-color:var(--brand);
+      padding-left:26px;
+    }
+
+    .toc .sub{
+      padding-left:10px;
+      font-size:0.9rem;
+    }
+
+    main{
+      display:flex;
+      flex-direction:column;
+      gap:clamp(18px, 3vw, 28px);
+    }
+
+    section.card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:clamp(20px, 2.8vw, 28px);
+      box-shadow:var(--shadow);
+      transition:transform 0.25s ease, box-shadow 0.25s ease;
+      backdrop-filter:blur(12px) saturate(140%);
+    }
+
+    section.card:hover{transform:translateY(-4px); box-shadow:0 20px 45px rgba(20, 30, 45, 0.45);}
+
+    section.card h2{
+      margin:6px 0 12px;
+      font-size:clamp(1.35rem, 2.4vw, 1.75rem);
+    }
+
+    h3{
+      margin:14px 0 8px;
+      font-size:clamp(1.08rem, 1.9vw, 1.3rem);
+    }
+
+    p{margin:8px 0; color:inherit;}
+    p.muted{color:var(--muted);}
+
+    ul, ol{margin:8px 0 8px 1.1rem; padding-left:0.6rem;}
+    li{margin:5px 0;}
+    ol{list-style:decimal-leading-zero;}
+
+    .grid{display:grid; gap:16px;}
+    .grid.two{grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));}
+    .grid.three{grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));}
+
     .callout{
-      border-left:4px solid var(--brand); 
-      background:linear-gradient(90deg, rgba(124,152,255,.1), rgba(124,152,255,.05)); 
-      padding:16px 18px; 
-      border-radius:var(--radius-sm); 
-      margin:12px 0;
-      transition:all .2s;
+      border-left:4px solid var(--brand);
+      background:linear-gradient(0deg, rgba(124,152,255,0.12), rgba(124,152,255,0.12));
+      padding:14px 14px 14px 12px;
+      border-radius:calc(var(--radius) - 6px);
+      margin:10px 0;
     }
-    .callout:hover{
-      background:linear-gradient(90deg, rgba(124,152,255,.15), rgba(124,152,255,.08));
-      transform:translateX(4px);
-    }
+
     .success{
-      border-left-color:var(--brand-2); 
-      background:linear-gradient(90deg, rgba(59,226,181,.1), rgba(59,226,181,.05));
-    }
-    .success:hover{
-      background:linear-gradient(90deg, rgba(59,226,181,.15), rgba(59,226,181,.08));
+      border-left-color:var(--brand-2);
+      background:linear-gradient(0deg, rgba(59,226,181,0.12), rgba(59,226,181,0.12));
     }
 
     .code{
-      font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; 
-      font-size:.88rem; 
-      background:#0f1622; 
-      color:#d9e3f0; 
-      border:1px solid var(--line); 
-      border-radius:var(--radius-sm); 
-      padding:16px; 
-      overflow-x:auto;
-      line-height:1.6;
-      box-shadow:inset 0 2px 8px rgba(0,0,0,.3);
+      font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:0.92rem;
+      background:#0f1622;
+      color:#dce6f5;
+      border:1px solid var(--line);
+      border-radius:calc(var(--radius) - 6px);
+      padding:14px;
+      overflow:auto;
+      box-shadow:inset 0 0 0 1px rgba(124,152,255,0.08);
     }
 
-    /* Footer */
     footer{
-      grid-column:1/-1; 
-      text-align:center; 
-      color:var(--muted); 
-      font-size:.9rem; 
-      padding:24px 0 8px;
-      border-top:1px solid var(--line);
-      margin-top:20px;
+      grid-column:1 / -1;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.92rem;
+      padding-top:12px;
     }
 
-    /* Mobile Menu Toggle */
-    .menu-toggle{
+    .sidebar-overlay{
       display:none;
-      position:fixed;
-      bottom:24px;
-      right:24px;
-      z-index:1000;
-      background:var(--brand);
-      color:#fff;
-      border:none;
-      border-radius:50%;
-      width:56px;
-      height:56px;
-      font-size:1.5rem;
-      cursor:pointer;
-      box-shadow:0 4px 16px rgba(124,152,255,.4);
-      transition:all .3s;
-    }
-    .menu-toggle:hover{
-      transform:scale(1.1);
-      box-shadow:0 6px 24px rgba(124,152,255,.6);
     }
 
-    /* Tablet & Mobile Responsive */
-    @media (max-width: 1024px){
-      .app{
-        grid-template-columns: 240px 1fr;
-        gap:20px;
-        padding:32px 20px;
-      }
-      header.hero{padding:28px 24px}
-      section.card{padding:24px}
+    @media (max-width: 1080px){
+      .app{grid-template-columns:minmax(0, 250px) minmax(0, 1fr);}    
     }
 
-    @media (max-width: 768px){
-      html{font-size:15px}
-      
-      .app{
-        grid-template-columns: 1fr;
-        gap:20px;
-        padding:24px 16px;
-      }
-      
-      header.hero{
-        padding:24px 20px;
-      }
-      
-      .hero h1{font-size:1.75rem}
-      
+    @media (max-width: 960px){
+      body{padding-inline:clamp(12px, 5vw, 28px);}  
+      .app{grid-template-columns:minmax(0,1fr);}
+      .hero{padding:clamp(22px, 5vw, 36px);}
+      .hero-actions{flex-direction:column; align-items:flex-start;}
+      .toc-toggle{display:inline-flex;}
       nav.sidebar{
         position:fixed;
-        left:0;
-        top:0;
-        bottom:0;
-        width:280px;
-        max-height:100vh;
-        border-radius:0;
-        transform:translateX(-100%);
-        transition:transform .3s;
-        z-index:999;
+        inset: clamp(16px, 6vw, 28px) clamp(16px, 6vw, 28px) auto;
+        max-height:calc(100vh - clamp(16px, 6vw, 28px)*2);
+        transform:translateY(-10px) scale(0.98);
+        opacity:0;
+        pointer-events:none;
+        z-index:1010;
+        width:min(420px, calc(100vw - clamp(16px, 6vw, 28px)*2));
       }
-      
-      nav.sidebar.open{
-        transform:translateX(0);
+      nav.sidebar.is-open{
+        transform:translateY(0) scale(1);
+        opacity:1;
+        pointer-events:auto;
       }
-      
-      .menu-toggle{display:block}
-      
-      .overlay{
-        display:none;
+      .sidebar-overlay{
+        display:block;
         position:fixed;
-        top:0;left:0;right:0;bottom:0;
-        background:rgba(0,0,0,.7);
-        z-index:998;
+        inset:0;
+        background:rgba(4, 9, 15, 0.6);
+        opacity:0;
+        pointer-events:none;
+        transition:opacity 0.2s ease;
+        z-index:1000;
+        backdrop-filter:blur(4px);
       }
-      .overlay.show{display:block}
-      
-      section.card{padding:20px 18px}
-      
-      .grid.two, .grid.three{
-        grid-template-columns:1fr;
+      .sidebar-overlay.is-active{
+        opacity:1;
+        pointer-events:auto;
       }
-      
-      .code{font-size:.82rem; padding:14px}
+      body.nav-open{overflow:hidden;}
     }
 
-    @media (max-width: 480px){
-      html{font-size:14px}
-      
-      .app{padding:20px 12px}
-      header.hero{padding:20px 16px}
-      section.card{padding:18px 16px}
-      
-      .meta{gap:8px}
-      .chip{padding:6px 12px; font-size:.8rem}
-      
-      h2{margin-bottom:12px}
-      h3{margin:14px 0 8px}
-      
-      .menu-toggle{
-        width:52px;
-        height:52px;
-        font-size:1.3rem;
-        bottom:20px;
-        right:20px;
-      }
+    @media (max-width: 640px){
+      .hero h1{font-size:clamp(1.7rem, 8vw, 2.2rem);}
+      .hero p{font-size:0.98rem;}
+      section.card{padding:clamp(18px, 6vw, 24px);}
+      .chip{font-size:0.82rem;}
+      .grid{gap:14px;}
+      ul, ol{margin-left:0.8rem;}
     }
 
-    /* Print Styles */
     @media print{
-      body{background:#fff}
-      body::before{display:none}
-      .app{gap:12px; padding:0}
-      header.hero, nav.sidebar, section.card{box-shadow:none; page-break-inside:avoid}
-      nav.sidebar{display:none}
-      .menu-toggle{display:none}
-      a{color:#000; text-decoration:none}
-      .code{border:1px solid #ccc}
+      body{background:#fff; color:#000; padding:0;}
+      body::before{display:none;}
+      .app{gap:16px;}
+      .hero, nav.sidebar, section.card{box-shadow:none; background:#fff; border:1px solid #d3d8e1;}
+      nav.sidebar{position:relative; top:auto;}
+      .toc-toggle, .sidebar-overlay{display:none !important;}
     }
 
-    /* Smooth animations */
     @media (prefers-reduced-motion: reduce){
-      *, *::before, *::after{
-        animation-duration:.01ms !important;
-        animation-iteration-count:1 !important;
-        transition-duration:.01ms !important;
-      }
+      *, *::before, *::after{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
     }
   </style>
 </head>
 <body>
-  <div class="overlay" id="overlay"></div>
-  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
-
   <div class="app">
     <header class="hero" id="top">
-      <h1>Operations Research & Linear Programming — Study Summaries</h1>
-      <p>Clear, exam‑ready notes distilled from two chapters: <strong>OR Overview</strong> and <strong>LP Fundamentals</strong>.</p>
-      <div class="meta">
+      <h1>Operations Research &amp; Linear Programming — Study Summaries</h1>
+      <p>Clear, exam-ready notes distilled from two chapters: <strong>OR Overview</strong> and <strong>LP Fundamentals</strong>.</p>
+      <div class="hero-actions">
         <span class="chip">Author: Mahdi Yahya (material summarized)</span>
         <span class="chip">Course: ENSIA / Operations Research</span>
-        <span class="chip">Prepared for: quick revision & teaching</span>
+        <span class="chip">Prepared for: quick revision &amp; teaching</span>
+        <button class="toc-toggle" type="button" data-toggle="toc" aria-expanded="false" aria-controls="page-toc">Browse Contents</button>
       </div>
     </header>
 
-    <nav class="sidebar" id="sidebar" aria-label="On this page">
+    <div class="sidebar-overlay" data-overlay aria-hidden="true"></div>
+
+    <nav class="sidebar" id="page-toc" aria-label="On this page" tabindex="-1">
       <div class="title">Contents</div>
       <ul class="toc">
         <li><a href="#or-1">1. What is OR?</a></li>
@@ -442,16 +382,16 @@
           </ul>
         </li>
         <li><a href="#lp-3">8. Graphical Solution (2 vars)</a></li>
-        <li><a href="#lp-4">9. Corner Points & Convexity</a></li>
+        <li><a href="#lp-4">9. Corner Points &amp; Convexity</a></li>
         <li><a href="#lp-5">10. LP Special Cases</a></li>
         <li><a href="#final">11. Final Takeaway</a></li>
         <li><a href="#sp1-0">12. Simplex Method — Part 1</a>
           <ul class="toc sub">
             <li><a href="#sp1-1">Key ideas</a></li>
             <li><a href="#sp1-2">LP Standard Form</a></li>
-            <li><a href="#sp1-3">Basic vs Nonbasic & BFS</a></li>
+            <li><a href="#sp1-3">Basic vs Nonbasic &amp; BFS</a></li>
             <li><a href="#sp1-4">Minimum Ratio Test</a></li>
-            <li><a href="#sp1-5">Algorithm & Tableau</a></li>
+            <li><a href="#sp1-5">Algorithm &amp; Tableau</a></li>
             <li><a href="#sp1-6">Special cases</a></li>
           </ul>
         </li>
@@ -460,7 +400,7 @@
             <li><a href="#sp2-1">Getting a starting BFS</a></li>
             <li><a href="#sp2-2">Two-Phase Method</a></li>
             <li><a href="#sp2-3">Special cases (deep-dive)</a></li>
-            <li><a href="#sp2-4">Sensitivity (RHS & objective)</a></li>
+            <li><a href="#sp2-4">Sensitivity (RHS &amp; objective)</a></li>
             <li><a href="#sp2-5">Exam checklist</a></li>
           </ul>
         </li>
@@ -469,7 +409,7 @@
 
     <main>
       <section class="card" id="or-1">
-        <h2>1) Operations Research (OR) — What & Why</h2>
+        <h2>1) Operations Research (OR) — What &amp; Why</h2>
         <p><strong>Definition.</strong> OR is the science of making better decisions using mathematical and logical methods.</p>
         <div class="grid two">
           <div>
@@ -483,7 +423,7 @@
             <h3>What OR delivers</h3>
             <ul>
               <li>Transforms complex issues into structured, solvable models.</li>
-              <li>Improves decision‑making, reduces costs, increases efficiency.</li>
+              <li>Improves decision-making, reduces costs, increases efficiency.</li>
               <li>Combines math, logic, and human factors.</li>
             </ul>
           </div>
@@ -526,8 +466,8 @@
           <li><strong>Define the problem</strong> — goals, constraints, scope.</li>
           <li><strong>Observe the system</strong> — collect/clean data; identify drivers.</li>
           <li><strong>Build the model</strong> — translate reality into math.</li>
-          <li><strong>Solve the model</strong> — OR methods or simulation; examine trade‑offs.</li>
-          <li><strong>Validate the model</strong> — sanity‑check against history/intuition.</li>
+          <li><strong>Solve the model</strong> — OR methods or simulation; examine trade-offs.</li>
+          <li><strong>Validate the model</strong> — sanity-check against history/intuition.</li>
           <li><strong>Present results</strong> — clear recommendations to decision makers.</li>
           <li><strong>Implement</strong> — turn insights into operating instructions.</li>
           <li><strong>Monitor</strong> — update as objectives/data change.</li>
@@ -537,7 +477,7 @@
       <section class="card" id="or-5">
         <h2>5) OR — Big Picture</h2>
         <div class="callout success">
-          <p><strong>OR uses science to solve real‑world problems</strong> by structuring decisions, optimizing under constraints, and respecting human elements — so organizations save cost, time, and resources.</p>
+          <p><strong>OR uses science to solve real-world problems</strong> by structuring decisions, optimizing under constraints, and respecting human elements — so organizations save cost, time, and resources.</p>
         </div>
       </section>
 
@@ -551,7 +491,7 @@
               <li><strong>Decision variables</strong>: x₁, x₂, …, xₙ (things we control)</li>
               <li><strong>Objective</strong>: Z = c₁x₁ + c₂x₂ + ··· + cₙxₙ</li>
               <li><strong>Constraints</strong>: a₁₁x₁ + a₁₂x₂ + ··· + a₁ₙxₙ ≤ b₁, …</li>
-              <li><strong>Non‑negativity</strong>: xᵢ ≥ 0</li>
+              <li><strong>Non-negativity</strong>: xᵢ ≥ 0</li>
             </ul>
           </div>
           <div>
@@ -570,7 +510,7 @@ Subject to              A·x ≤ b,  x ≥ 0
         <div class="grid two">
           <div id="lp-2a">
             <h3>1) Proportionality</h3>
-            <p>Each variable's contribution to the objective and constraints scales linearly with its level.</p>
+            <p>Each variable’s contribution to the objective and constraints scales linearly with its level.</p>
           </div>
           <div id="lp-2b">
             <h3>2) Additivity</h3>
@@ -586,7 +526,7 @@ Subject to              A·x ≤ b,  x ≥ 0
           </div>
         </div>
         <div class="callout">
-          <strong>Note.</strong> LP models are approximations — often accurate enough to guide high‑quality decisions efficiently.
+          <strong>Note.</strong> LP models are approximations — often accurate enough to guide high-quality decisions efficiently.
         </div>
       </section>
 
@@ -595,14 +535,14 @@ Subject to              A·x ≤ b,  x ≥ 0
         <ol>
           <li><strong>Draw constraints</strong> as lines; shade the region satisfying all.</li>
           <li><strong>Identify feasible region</strong>; intersections (corner points) are candidates.</li>
-          <li><strong>Plot objective</strong> as an iso‑profit/iso‑cost line Z = constant.</li>
+          <li><strong>Plot objective</strong> as an iso-profit/iso-cost line Z = constant.</li>
           <li><strong>Slide the line</strong> in the improving direction; the last touching point is optimal.</li>
         </ol>
         <div class="callout success"><strong>Key insight:</strong> The optimal solution of an LP occurs at a <em>corner point</em> of the feasible region.</div>
       </section>
 
       <section class="card" id="lp-4">
-        <h2>9) Corner Points & Convexity</h2>
+        <h2>9) Corner Points &amp; Convexity</h2>
         <ul>
           <li>LP feasible regions are <strong>convex</strong> (no disconnected islands).</li>
           <li>Convexity ensures no local traps: any optimum is <strong>global</strong>.</li>
@@ -639,19 +579,194 @@ Subject to              A·x ≤ b,  x ≥ 0
       </section>
 
       <section class="card" id="sp1-2">
-        <h3>LP <strong>Standard Form</strong> & conversions</h3>
+        <h3>LP <strong>Standard Form</strong> &amp; conversions</h3>
         <ul>
           <li>Maximize <strong>linear</strong> objective; constraints as <strong>equalities</strong>: <strong>A·x = b</strong>; with <strong>x ≥ 0</strong>.</li>
           <li><strong>≤</strong> constraint → add <strong>slack</strong> (+s).  <strong>≥</strong> constraint → add <strong>surplus</strong> (−s).</li>
-          <li><strong>Unrestricted</strong> variable: replace by <strong>x = x plus − x minus</strong>, with both ≥ 0.</li>
+          <li><strong>Unrestricted</strong> variable: replace by <strong>x = x<sub>+</sub> − x<sub>-</sub></strong>, with both ≥ 0.</li>
           <li>A variable or slack is <strong>zero</strong> at optimum → the corresponding constraint is <strong>binding</strong>.</li>
         </ul>
         <div class="callout"><strong>Exam tip:</strong> Be able to <strong>convert any LP</strong> to standard form and identify <strong>binding</strong> vs <strong>non-binding</strong> constraints.</div>
       </section>
 
       <section class="card" id="sp1-3">
-        <h3><strong>Basic</strong> vs <strong>Nonbasic</strong> & <strong>BFS</strong></h3>
+        <h3><strong>Basic</strong> vs <strong>Nonbasic</strong> &amp; <strong>BFS</strong></h3>
         <ul>
           <li>Pick <strong>m</strong> basic variables (for <strong>m</strong> equations); set the other <strong>n−m</strong> to <strong>0</strong> → solve.</li>
           <li>A <strong>Basic Feasible Solution (BFS)</strong> satisfies <strong>x ≥ 0</strong>. <strong>Corners ⇔ BFSs</strong>.</li>
-          <li>Naïve corner enumeration explodes: <strong
+          <li>Naïve corner enumeration explodes: <strong>C(n, m)</strong>. Simplex avoids this.</li>
+        </ul>
+        <div class="callout success"><strong>Must remember:</strong> Corner point = <strong>BFS</strong>. Optimal corner can be found <strong>without</strong> listing all corners.</div>
+      </section>
+
+      <section class="card" id="sp1-4">
+        <h3><strong>Minimum-Ratio Test</strong> (to keep feasibility)</h3>
+        <p>Given an <strong>entering</strong> variable (pivot column), choose the <strong>leaving</strong> variable via:</p>
+        <div class="code">min { RHS<sub>i</sub> / a<sub>i,enter</sub>  |  a<sub>i,enter</sub> &gt; 0 }</div>
+        <p>Only rows with <strong>positive</strong> pivot column entries are considered, ensuring the new BFS keeps <strong>x ≥ 0</strong>.</p>
+      </section>
+
+      <section class="card" id="sp1-5">
+        <h3><strong>Simplex algorithm</strong> (core loop) &amp; tableau notes</h3>
+        <ol>
+          <li><strong>Start</strong> from a BFS (by inspection or Phase I).</li>
+          <li><strong>Choose entering</strong> variable: positive reduced cost (for max).</li>
+          <li><strong>Choose leaving</strong>: apply <strong>minimum-ratio</strong> test.</li>
+          <li><strong>Pivot</strong> (Gaussian elimination) to update the basis.</li>
+          <li><strong>Stop</strong> when no positive reduced costs remain → <strong>optimal BFS</strong>.</li>
+        </ol>
+        <div class="callout"><strong>Exam tip:</strong> Know how to read a <strong>tableau</strong>: optimality test, entering/leaving choice, and a clean pivot.</div>
+      </section>
+
+      <section class="card" id="sp1-6">
+        <h3>Special cases (Part 1 view)</h3>
+        <ul>
+          <li><strong>Unbounded</strong>: objective can grow without limit (often a missing constraint).</li>
+          <li><strong>Infeasible</strong>: no point satisfies all constraints.</li>
+          <li><strong>Multiple optima</strong>: zero reduced cost for a nonbasic variable at optimum.</li>
+          <li><strong>Degeneracy</strong>: a basic variable becomes 0; may cause cycling (fix with rules like <strong>Bland’s</strong>).</li>
+        </ul>
+      </section>
+
+      <section class="card" id="sp2-0">
+        <h2>13) Simplex Method — <strong>Part 2</strong></h2>
+        <p>Here we build an initial BFS when the origin is not feasible (the <strong>Two-Phase Method</strong>), then handle <strong>special cases</strong> and perform <strong>sensitivity analysis</strong>.</p>
+      </section>
+
+      <section class="card" id="sp2-1">
+        <h3>Getting a <strong>starting BFS</strong></h3>
+        <ul>
+          <li>All-slack start works only if all constraints are <strong>≤</strong> with <strong>RHS ≥ 0</strong>.</li>
+          <li>Otherwise introduce <strong>artificial variables</strong> and run <strong>Phase 1</strong>.</li>
+        </ul>
+        <div class="callout success"><strong>Exam must-know:</strong> When do you need artificial variables? How to set up the auxiliary Phase-1 problem.</div>
+      </section>
+
+      <section class="card" id="sp2-2">
+        <h3><strong>Two-Phase Method</strong></h3>
+        <div class="grid two">
+          <div>
+            <h4>Phase 1 — Feasibility</h4>
+            <ul>
+              <li>Build auxiliary LP: <strong>minimize</strong> R₁ + R₂ + ... + Rₘ.</li>
+              <li>Add <strong>R<sub>i</sub></strong> only where you cannot form a starting basis.</li>
+              <li>Run Simplex. If optimum <strong>= 0</strong>, you have a <strong>feasible basis</strong> with all <strong>R<sub>i</sub> = 0</strong>.</li>
+              <li>If optimum <strong>&gt; 0</strong>, the original LP is <strong>infeasible</strong>.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Phase 2 — Optimization</h4>
+            <ul>
+              <li>Drop artificial variables; restore the <strong>original objective</strong>.</li>
+              <li>Start from the Phase-1 basis and run Simplex to the <strong>optimal BFS</strong>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="sp2-3">
+        <h3>Special cases — <strong>how to detect &amp; explain</strong></h3>
+        <ul>
+          <li><strong>Infeasibility</strong>: Phase-1 optimum &gt; 0 (cannot drive all <strong>R<sub>i</sub></strong> to 0).</li>
+          <li><strong>Unboundedness</strong>: for a chosen entering column, <strong>no valid leaving row</strong> (all ratios ≤ 0 or ∞).</li>
+          <li><strong>Alternative optima</strong>: some <strong>nonbasic</strong> variable has <strong>zero reduced cost</strong> at optimality.</li>
+          <li><strong>Degeneracy &amp; Cycling</strong>: ties in min-ratio → basic variable becomes <strong>0</strong>; apply <strong>Bland’s rule</strong> (smallest index) to prevent cycling.</li>
+        </ul>
+        <div class="callout"><strong>Exam tip:</strong> Be ready to <strong>justify</strong> each diagnosis directly from the <strong>tableau</strong> (signs, ratios, reduced costs).</div>
+      </section>
+
+      <section class="card" id="sp2-4">
+        <h3><strong>Sensitivity Analysis</strong> — RHS &amp; objective coefficients</h3>
+        <div class="grid two">
+          <div>
+            <h4>RHS (resources) changes</h4>
+            <ul>
+              <li>Constraint lines move <strong>in parallel</strong>; basis stays the same within an <strong>allowable range</strong>.</li>
+              <li><strong>Dual (shadow) price</strong> = change in optimal <strong>z</strong> per unit of a resource (valid within the range).</li>
+              <li>Choose which resource to expand by comparing <strong>dual prices</strong> (benefit) vs <strong>cost</strong>.</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Objective coefficients changes</h4>
+            <ul>
+              <li>Changes the <strong>slope</strong> of the isoprofit/isocost lines.</li>
+              <li>There is an <strong>optimality range</strong> for coefficients that keeps the <strong>same corner</strong> optimal.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout success"><strong>Be able to answer:</strong> Which machine to prioritize? Is expansion at cost <em>k</em> worthwhile? What range of <strong>c<sub>i</sub></strong> keeps the same solution?</div>
+      </section>
+
+      <section class="card" id="sp2-5">
+        <h3><strong>Exam checklist</strong> — concepts &amp; skills</h3>
+        <ul>
+          <li>Convert any LP to <strong>standard form</strong>; identify <strong>binding</strong> constraints.</li>
+          <li>Define <strong>basic / nonbasic</strong> variables; construct a <strong>BFS</strong>.</li>
+          <li>Run one <strong>Simplex pivot</strong>: pick entering/leaving, apply <strong>min-ratio</strong>, update tableau.</li>
+          <li>Diagnose <strong>unboundedness / infeasibility / multiple optima / degeneracy</strong> from a tableau.</li>
+          <li>Apply <strong>Two-Phase</strong> to get a starting BFS when needed.</li>
+          <li>Compute/interpret <strong>dual prices</strong> and <strong>optimality ranges</strong> (RHS &amp; coefficients).</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 Study Summaries • Built for @yahya.abderrahmane.mahdi — Print this page for a handy one-pager.</p>
+    </footer>
+  </div>
+
+  <script>
+    const smoothLinks = document.querySelectorAll('a[href^="#"]');
+    smoothLinks.forEach(link => {
+      link.addEventListener('click', event => {
+        const id = link.getAttribute('href');
+        const target = document.querySelector(id);
+        if (target) {
+          event.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.replaceState(null, '', id);
+        }
+      });
+    });
+
+    const toggle = document.querySelector('[data-toggle="toc"]');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('[data-overlay]');
+
+    const closeSidebar = () => {
+      sidebar?.classList.remove('is-open');
+      overlay?.classList.remove('is-active');
+      document.body.classList.remove('nav-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    };
+
+    if (toggle && sidebar && overlay) {
+      toggle.addEventListener('click', () => {
+        const isOpen = sidebar.classList.toggle('is-open');
+        overlay.classList.toggle('is-active', isOpen);
+        document.body.classList.toggle('nav-open', isOpen);
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        if (isOpen) {
+          sidebar.focus?.();
+        }
+      });
+
+      overlay.addEventListener('click', closeSidebar);
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+          closeSidebar();
+        }
+      });
+
+      sidebar.querySelectorAll('a').forEach(anchor => {
+        anchor.addEventListener('click', () => {
+          if (window.matchMedia('(max-width: 960px)').matches) {
+            closeSidebar();
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
